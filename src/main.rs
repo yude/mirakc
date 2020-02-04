@@ -17,10 +17,27 @@ mod web;
 
 use std::env;
 
+use cfg_if;
 use clap;
 use pretty_env_logger;
 
 use crate::error::Error;
+
+cfg_if::cfg_if! {
+    if #[cfg(feature = "use-jemalloc")] {
+        use jemallocator::Jemalloc;
+        #[global_allocator]
+        static GLOBAL: Jemalloc = Jemalloc;
+    } else if #[cfg(feature = "use-mimalloc")] {
+        use mimalloc::MiMalloc;
+        #[global_allocator]
+        static GLOBAL: MiMalloc = MiMalloc;
+    } else if #[cfg(feature = "use-tcmalloc")] {
+        use tcmalloc::TCMalloc;
+        #[global_allocator]
+        static GLOBAL: TCMalloc = TCMalloc;
+    }
+}
 
 #[actix_rt::main]
 async fn main() -> Result<(), Error> {

@@ -41,7 +41,7 @@ RUN apt-get update \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     #
     # Install additional packages required for debugging mirakc
-    && apt-get install -y socat \
+    && apt-get install -y cmake socat \
     #
     # Clean up
     && apt-get autoremove -y \

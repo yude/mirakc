@@ -115,7 +115,7 @@ esac
 RECDVB_DEPS="autoconf automake ca-certificates curl make pkg-config $GXX"
 RECPT1_DEPS="autoconf automake ca-certificates curl make pkg-config $GXX"
 MIRAKC_ARIB_DEPS="autoconf automake ca-certificates curl cmake dos2unix git libtool make pkg-config $GXX"
-MIRAKC_DEPS="ca-certificates curl $GXX"
+MIRAKC_DEPS="autoconf automake ca-certificates cmake curl make pkg-config $GXX"
 
 DEPS=$(echo "$RECDVB_DEPS $RECPT1_DEPS $MIRAKC_ARIB_DEPS $MIRAKC_DEPS" | \
          tr ' ' '\n' | sort | uniq | tr '\n' ' ')

@@ -1,13 +1,15 @@
 # mirakc
 FROM buildenv AS mirakc-build
 
+ARG features=''
+
 ADD . ./
 # See: https://github.com/japaric/rust-cross
 #      https://doc.rust-lang.org/cargo/reference/config.html
 RUN mkdir -p .cargo
 RUN echo "[target.{{RUST_TARGET_TRIPLE}}]" >.cargo/config
 RUN echo "linker = \"{{RUST_LINKER}}\"" >>.cargo/config
-RUN cargo build --release --target {{RUST_TARGET_TRIPLE}}
+RUN cargo build --release --target {{RUST_TARGET_TRIPLE}} --features=$features
 RUN cp /build/target/{{RUST_TARGET_TRIPLE}}/release/mirakc /usr/local/bin/
 
 

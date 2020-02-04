@@ -6,6 +6,27 @@ description = "A Mirakurun clone written in Rust"
 edition = "2018"
 license = "MIT OR Apache-2.0"
 
+[features]
+default = []
+
+# At most one of the following features can be selected.
+
+# Use jemalloc as a global allocator.
+# Used in old Rust as default allocator.
+use-jemalloc = ["jemallocator"]
+
+# Use mimalloc as a global allocator.
+# The memory consumption looks better than glibc and jemalloc on ROCK64/1GB.
+# It's less than 80 MiB on idle.
+#
+# However, it's still worse than macOS and Docker containers running on macOS.
+# It's less than 40 MiB on idle.
+use-mimalloc = ["mimalloc"]
+
+# Use TCMalloc as a global allocator.
+# Cross-compilation fails deu to a link error.
+use-tcmalloc = ["tcmalloc"]
+
 [dependencies]
 actix = "0.9"
 actix-rt = "1.0"
@@ -30,6 +51,11 @@ serde_json = { version = "1.0", features = ["preserve_order"] }
 serde_yaml = "0.8"
 shell-words = "0.1"
 tokio = { version = "0.2", features = ["full"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+jemallocator = { version = "0.3", optional = true }
+mimalloc = { version = "0.1", default-features = false, optional = true }
+tcmalloc = { version = "0.3", features = ["bundled"], optional = true }
 
 [dev-dependencies]
 matches = "0.1"
