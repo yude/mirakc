@@ -1,8 +1,13 @@
+extern crate iprange;
+extern crate ipnet;
+
 use std::fmt;
 use std::fmt::Write as _;
 use std::future::Future;
 use std::io;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
+use iprange::IpRange;
+use ipnet::Ipv4Net;
 use std::pin::Pin;
 use std::sync::Arc;
 
@@ -1322,7 +1327,12 @@ fn is_private_ip_addr(ip: IpAddr) -> bool {
 }
 
 fn is_private_ipv4_addr(ip: Ipv4Addr) -> bool {
-    ip.is_loopback() || ip.is_private() || ip.is_link_local()
+    let tailnet_range: IpRange<Ipv4Net> = ["100.64.0.0/10"] // Tailscale's IP range
+        .iter()
+        .map(|s| s.parse().unwrap())
+        .collect();
+    
+    ip.is_loopback() || ip.is_private() || ip.is_link_local() || tailnet_range.contains(&ip)
 }
 
 fn is_private_ipv6_addr(ip: Ipv6Addr) -> bool {
