@@ -19,6 +19,8 @@ futures = "0.3.21"
 http-range = "0.1.5"
 humantime = "2.1.0"
 indexmap = { version = "1.9.1", features = ["serde-1"] }
+ipnet = "2.5.0"
+iprange = { version = "0.6", features = ["serde"] }
 itertools = "0.10.3"
 libc = "0.2.127"
 log = "0.4.17"
