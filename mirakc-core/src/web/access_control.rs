@@ -16,6 +16,10 @@ use tower::Service;
 use super::peer_info::PeerInfo;
 use crate::error::Error;
 
+extern crate ip_in_subnet;
+
+use ip_in_subnet::iface_in_subnet;
+
 #[derive(Clone)]
 pub(super) struct AccessControlLayer;
 
@@ -83,7 +87,7 @@ fn is_private_ip_addr(ip: IpAddr) -> bool {
 }
 
 fn is_private_ipv4_addr(ip: Ipv4Addr) -> bool {
-    ip.is_loopback() || ip.is_private() || ip.is_link_local()
+    ip.is_loopback() || ip.is_private() || ip.is_link_local() || iface_in_subnet(&ip.to_string(), "100.64.0.0/10").unwrap()
 }
 
 fn is_private_ipv6_addr(ip: Ipv6Addr) -> bool {

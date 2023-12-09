@@ -988,6 +988,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "ip-in-subnet"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da0800b3ffd5da204ef77cd93760a75812cf6a8fb20032e2011e691f46bd8630"
+dependencies = [
+ "netaddr2",
+]
+
+[[package]]
 name = "ipnet"
 version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1199,6 +1208,7 @@ dependencies = [
  "hyper 1.0.1",
  "hyper-util",
  "indexmap",
+ "ip-in-subnet",
  "is-terminal",
  "itertools 0.12.0",
  "libc",
@@ -1288,6 +1298,12 @@ dependencies = [
  "log 0.3.9",
  "serde",
 ]
+
+[[package]]
+name = "netaddr2"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c786be7ab83e700aaf56af5f1e4b16247182446a7679fe43a4c0eaae31242180"
 
 [[package]]
 name = "nom"
