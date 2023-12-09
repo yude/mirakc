@@ -4,7 +4,7 @@ services:
     #
     # Replace `mirakc-sample` with `docker.io/mirakc/mirakc` if you like to use
     # a pre-built image in Docker Hub.
-    image: mirakc-sample
+    image: ghcr.io/yude/mirakc:main
     build:
       context: ../
       dockerfile: ./docker/Dockerfile.debian
